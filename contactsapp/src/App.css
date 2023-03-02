@@ -7,6 +7,22 @@
   pointer-events: none;
 }
 
+#card-title{
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#card-text-value{
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+#card{
+  margin-top: 14px;
+}
+.MuiCardContent-root.css-46bh2p-MuiCardContent-root{
+  padding: 8px!important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
