@@ -26,19 +26,21 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     }),
 }));
 
+function AvatarSubstitution(firstName:string,lastName:string) {
+    return firstName.substring(0,1)+lastName.substring(0,1).toLowerCase();
+}
+
 export default function RecipeReviewCard(props:{contact:shortData}) {
     const [expanded, setExpanded] = React.useState(false);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    const AvatarString = AvatarSubstitution(props.contact.firstName,props.contact.lastName);
 
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        Mp
+                    <Avatar sx={{ bgcolor: red[500] }}>
+                        {AvatarString}
                     </Avatar>
                 }
                 action={
