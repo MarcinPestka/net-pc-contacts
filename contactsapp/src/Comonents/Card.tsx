@@ -7,8 +7,9 @@ import { shortData } from '../model/shortData';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import { IconButton } from '@mui/material';
 
-export default function BasicCard(props:{dane:shortData[],selectContact:(id:string) => void}) {
-    const cards = props.dane.map((text) =>(
+export default function BasicCard(props:{contacts:shortData[],selectContact:(id:string) => void}) {
+  console.log(props.contacts);
+    const cards = props.contacts.map((text) =>(
         <Card sx={{ minWidth: 275 }} id="card" key={text.id}>
         <CardContent>
       <Grid container rowSpacing={1}>

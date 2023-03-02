@@ -50,7 +50,7 @@ export default function RecipeReviewCard(props:{contact:shortData}) {
                 }
 
                 title={props.contact.firstName + " " + props.contact.lastName}
-                subheader={props.contact.componay}
+                subheader="test" //{props.contact.componay}
             />
             <CardContent>
                 <Grid>
@@ -67,11 +67,11 @@ export default function RecipeReviewCard(props:{contact:shortData}) {
                     <Grid container rowSpacing={1}>
                         <Grid item xs={6}>
                             <p id="card-title">Numer telefonu</p>
-                            <h3 id="card-text-value">{props.contact.phoneNumber}</h3>
+                            <h3 id="card-text-value">111</h3>
                         </Grid>
                         <Grid item xs={6}>
                             <p id="card-title">Email</p>
-                            <h3 id="card-text-value">{props.contact.eMail}</h3>
+                            <h3 id="card-text-value">3213</h3>
                         </Grid>
                     </Grid>
                 </Grid>

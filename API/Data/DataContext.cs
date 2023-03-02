@@ -14,7 +14,7 @@ namespace API.Data
         {
             base.OnConfiguring(optionsBuilder);
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 32));
-            optionsBuilder.UseMySql("server=localhost;port=55571;user=root;password=change-me;database=contactsdb",serverVersion);
+            optionsBuilder.UseMySql("server=localhost;port=57493;user=root;password=change-me;database=contactsdb",serverVersion);
             
         }
 
