@@ -6,10 +6,10 @@ import { Container, Grid, Paper } from '@mui/material';
 import { shortData } from './model/shortData';
 import DetailsCard from './Comonents/DetailsCard';
 import axios from 'axios';
+import ContactFormCard from './Comonents/ContactForm';
 
 function mapContacts(responseData:shortData[]) {
   if (responseData.length != 0) {
-    console.log(responseData);
     const Contacts = (responseData.map(Contact => ({
       id: Contact.id,
       firstName: Contact.firstName,
@@ -34,10 +34,15 @@ function getContacts({setContacts}:any) {
 function App() {
   const [contacts, setContacts] = useState<shortData[]>([]);
   const [selectedContact, setSelectedContact] = useState<shortData | undefined>();
+  const [edit,setEditMode] = useState(false);
 
   useEffect(() => {
       getContacts({setContacts});
   }, []);
+
+  useEffect(() => {
+    setEditMode(edit);
+  }, [edit]);
 
   function handleSelectContact(id:string){
     setSelectedContact(contacts.find(x => x.id === id));
@@ -52,8 +57,13 @@ function App() {
 }
     </Grid>
     <Grid item xs={6} md={4}>
-      {selectedContact && 
-        <DetailsCard contact={selectedContact}></DetailsCard>
+      {selectedContact && !edit &&
+      <>
+      <DetailsCard contact={selectedContact} setEditMode={setEditMode}></DetailsCard>
+      </>
+      }
+      {selectedContact && edit &&
+      <ContactFormCard contact={selectedContact} setEditMode={setEditMode}></ContactFormCard>
       }
     </Grid>
     </Grid>

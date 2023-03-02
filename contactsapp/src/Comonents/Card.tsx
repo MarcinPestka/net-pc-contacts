@@ -8,7 +8,6 @@ import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import { IconButton } from '@mui/material';
 
 export default function BasicCard(props:{contacts:shortData[],selectContact:(id:string) => void}) {
-  console.log(props.contacts);
     const cards = props.contacts.map((text) =>(
         <Card sx={{ minWidth: 275 }} id="card" key={text.id}>
         <CardContent>
