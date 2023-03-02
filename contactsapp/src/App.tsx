@@ -12,21 +12,27 @@ const dane = [
     firstName:"Marcin",
     lastName:"Pestka",
     phoneNumber:"123 123 123",
+    componay:"Net PC Sp. Z o.o.",
     eMail:"pestka.m.j@gmail.com",
+    private:false,
   },
   {
     id:"1",
     firstName:"Adam",
     lastName:"Małysz",
     phoneNumber:"222 222 222",
+    componay:"",
     eMail:"adam@malysz.pl",
+    private:true,
   },
   {
     id:"2",
     firstName:"Mariusz",
     lastName:"Pudzianowski",
     phoneNumber:"333 333 333",
+    componay:"Budimex Sp. A.",
     eMail:"mar@iusz.com",
+    private:true,
   }
 ]
 
@@ -39,7 +45,6 @@ function App() {
 
   function handleSelectContact(id:string){
     setSelectedContact(contacts.find(x => x.id === id));
-    console.log("test")
   }
   
   return (

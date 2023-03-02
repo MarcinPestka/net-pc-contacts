@@ -49,8 +49,8 @@ export default function RecipeReviewCard(props:{contact:shortData}) {
                     </IconButton>
                 }
 
-                title="Marcin Pestka"
-                subheader="Net PC Sp. Z o.o."
+                title={props.contact.firstName + " " + props.contact.lastName}
+                subheader={props.contact.componay}
             />
             <CardContent>
                 <Grid>
