@@ -33,3 +33,11 @@
 /Users/marcinpestka/Desktop/Net_pc/API/obj/Debug/net7.0/ref/API.dll
 /Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.dll
 /Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Humanizer.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.Extensions.DependencyModel.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Mono.TextTemplating.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/MySqlConnector.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Pomelo.EntityFrameworkCore.MySql.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/System.CodeDom.dll

@@ -14,33 +14,33 @@ public class ContatcsController : ControllerBase
     }
 
     [HttpGet("GetAllContacts")]
-    public IEnumerable<PrivateContact> GetAllContacts()
+    public async Task<IEnumerable<Contact>> GetAllContacts()
     {
-        var res = ContactService.GetAllContacts();
+        var res = await ContactService.GetAllContacts();
         return res;
     }
     [HttpGet("GetOneContacts")]
-    public PrivateContact GetOneContact(int id)
+    public async Task<Contact> GetOneContact(int id)
     {
-        var res = ContactService.GetOneContact(id);
+        var res = await ContactService.GetOneContact(id);
         return res;
     }
     [HttpPost("AddContact")]
-    public IEnumerable<PrivateContact> AddOneContact(PrivateContact contact)
+    public async Task<IEnumerable<Contact>> AddOneContact(Contact contact)
     {
-        var res = ContactService.AddOneContact(contact);
+        var res = await ContactService.AddOneContact(contact);
         return res;
     }
     [HttpPut("ChangeContact")]
-    public IEnumerable<PrivateContact> ChangeContact(int id, PrivateContact contact)
+    public async Task<IEnumerable<Contact>> ChangeContact(int id, Contact contact)
     {
-        var res = ContactService.ChangeContact(id, contact);
+        var res = await ContactService.ChangeContact(id, contact);
         return res;
     }
     [HttpDelete("DeleteContact")]
-    public IEnumerable<PrivateContact> DeleteContact(int id)
+    public async Task<IEnumerable<Contact>> DeleteContact(int id)
     {
-        var res = ContactService.DeleteContact(id);
+        var res = await ContactService.DeleteContact(id);
         return res;
     }
 }

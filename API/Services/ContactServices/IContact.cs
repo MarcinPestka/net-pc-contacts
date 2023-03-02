@@ -2,9 +2,9 @@ namespace API.Services.ContactServices;
 
 public interface IContact
 {
-    IEnumerable<PrivateContact> GetAllContacts();
-    PrivateContact GetOneContact(int id);
-    IEnumerable<PrivateContact> AddOneContact(PrivateContact contact);
-    IEnumerable<PrivateContact> ChangeContact(int id, PrivateContact contact);
-    IEnumerable<PrivateContact> DeleteContact(int id);
+    Task<IEnumerable<Contact>> GetAllContacts();
+    Task<Contact> GetOneContact(int id);
+    Task<IEnumerable<Contact>> AddOneContact(Contact contact);
+    Task<IEnumerable<Contact>> ChangeContact(int id, Contact contact);
+    Task<IEnumerable<Contact>> DeleteContact(int id);
 }

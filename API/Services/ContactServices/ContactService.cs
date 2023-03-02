@@ -1,39 +1,60 @@
+using API.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace API.Services.ContactServices;
 
 public class ContactService : IContact
 {    
-    public static List<PrivateContact> contactsList = new List<PrivateContact>(){
-        new PrivateContact{Id = 0,FirstName = "Marcin", LastName = "Pestka", Email = "pestka.m.j@gmail.com", PhoneNumber = "222222222",BirthDate = DateTime.Now},
-        new PrivateContact{Id = 1,FirstName = "Paweł", LastName = "Kowalski", Email = "kowal@gmail.com", PhoneNumber = "111111111",BirthDate = DateTime.Now},
-        new PrivateContact{Id = 2,FirstName = "Mariusz", LastName = "Pudzianowski", Email = "pudzian@gmail.com", PhoneNumber = "333333333",BirthDate = DateTime.Now},
-    };
+    private readonly DataContext context;
 
-    public IEnumerable<PrivateContact> ChangeContact(int id, PrivateContact contact)
+    public ContactService(DataContext context)
     {
-
-        return contactsList;
+        this.context = context; 
     }
 
-    public IEnumerable<PrivateContact> DeleteContact(int id)
+    public async Task<IEnumerable<Contact>> ChangeContact(int id, Contact contact)
     {
-        contactsList.Remove(contactsList.Find(x => x.Id == id));
-        return contactsList;
+       var contactOld = await this.context.Contacts.FindAsync(id);
+
+            contactOld.FirstName = contact.FirstName;
+            contactOld.LastName = contact.LastName;
+            contactOld.Email = contact.Email;
+            contactOld.PhoneNumber = contact.PhoneNumber;
+            contactOld.BirthDate = contact.BirthDate;
+            contactOld.Category = contact.Category;
+
+            await this.context.SaveChangesAsync();
+
+            return await this.context.Contacts.ToListAsync();
     }
 
-    public IEnumerable<PrivateContact> GetAllContacts()
+    public async Task<IEnumerable<Contact>> DeleteContact(int id)
     {
-        return contactsList;
+         var contact = await this.context.Contacts.FindAsync(id);
+
+        this.context.Contacts.Remove(contact);
+        await this.context.SaveChangesAsync();
+
+        return await this.context.Contacts.ToListAsync();
     }
 
-    public PrivateContact GetOneContact(int id)
+    public async Task<IEnumerable<Contact>> GetAllContacts()
     {
-        PrivateContact contact = contactsList.Find(x => x.Id == id);
+        var contacts = await this.context.Contacts.ToListAsync();
+        return contacts;
+    }
+
+    public async Task<Contact> GetOneContact(int id)
+    {
+        var contact = await this.context.Contacts.FindAsync(id);
         return contact;
     }
 
-    public IEnumerable<PrivateContact> AddOneContact(PrivateContact contact)
+    public async Task<IEnumerable<Contact>> AddOneContact(Contact contact)
     {
-        contactsList.Add(contact);
-        return contactsList;
+        this.context.Contacts.Add(contact);
+        await this.context.SaveChangesAsync();
+
+        return await this.context.Contacts.ToListAsync();
     }
 }
