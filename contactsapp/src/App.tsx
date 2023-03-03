@@ -63,8 +63,6 @@ function App() {
   const [edit,setEditMode] = useState(false);
   const [create,setCreateMode] = useState(false);
 
-
-
   function createOrEdit(contact:contactData){
     if (contact.id) {
       axios({
@@ -105,6 +103,7 @@ function App() {
 
   useEffect(() => {
       getContacts({setContacts});
+      getAllCategories();
   }, []);
 
   useEffect(() => {
@@ -113,6 +112,15 @@ function App() {
 
   function handleSelectContact(id:string){
     setSelectedContact(contacts.find(x => x.id === id));
+  }
+
+  async function getAllCategories() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/Categories/GetAllCategories',
+    }).then(function (response) {
+      console.log(response.data);
+      });
   }
 
   async function deleteContact(id:string) {

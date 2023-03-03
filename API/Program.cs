@@ -1,5 +1,6 @@
 global using API.Models;
 using API.Services.ContactServices;
+using API.Services.CategoryServices;
 using API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IContact, ContactService>();
+builder.Services.AddScoped<ICategory, CategoryService>();
+
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddCors(opt=>{
     opt.AddPolicy("CorsPolicy",policy=>{
