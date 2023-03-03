@@ -12,7 +12,7 @@ public class ContactService : IContact
         this.context = context; 
     }
 
-    public async Task<IEnumerable<Contact>> ChangeContact(int id, Contact contact)
+    public async Task<IEnumerable<Contact>> ChangeContact(Guid id, Contact contact)
     {
        var contactOld = await this.context.Contacts.FindAsync(id);
 
@@ -28,7 +28,7 @@ public class ContactService : IContact
             return await this.context.Contacts.ToListAsync();
     }
 
-    public async Task<IEnumerable<Contact>> DeleteContact(int id)
+    public async Task<IEnumerable<Contact>> DeleteContact(Guid id)
     {
          var contact = await this.context.Contacts.FindAsync(id);
 
@@ -44,7 +44,7 @@ public class ContactService : IContact
         return contacts;
     }
 
-    public async Task<Contact> GetOneContact(int id)
+    public async Task<Contact> GetOneContact(Guid id)
     {
         var contact = await this.context.Contacts.FindAsync(id);
         return contact;

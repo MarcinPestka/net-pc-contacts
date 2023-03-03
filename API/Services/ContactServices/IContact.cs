@@ -3,8 +3,8 @@ namespace API.Services.ContactServices;
 public interface IContact
 {
     Task<IEnumerable<Contact>> GetAllContacts();
-    Task<Contact> GetOneContact(int id);
+    Task<Contact> GetOneContact(Guid id);
     Task<IEnumerable<Contact>> AddOneContact(Contact contact);
-    Task<IEnumerable<Contact>> ChangeContact(int id, Contact contact);
-    Task<IEnumerable<Contact>> DeleteContact(int id);
+    Task<IEnumerable<Contact>> ChangeContact(Guid id, Contact contact);
+    Task<IEnumerable<Contact>> DeleteContact(Guid id);
 }

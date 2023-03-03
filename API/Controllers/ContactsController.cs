@@ -20,7 +20,7 @@ public class ContatcsController : ControllerBase
         return res;
     }
     [HttpGet("GetOneContacts")]
-    public async Task<Contact> GetOneContact(int id)
+    public async Task<Contact> GetOneContact(Guid id)
     {
         var res = await ContactService.GetOneContact(id);
         return res;
@@ -32,13 +32,13 @@ public class ContatcsController : ControllerBase
         return res;
     }
     [HttpPut("ChangeContact")]
-    public async Task<IEnumerable<Contact>> ChangeContact(int id, Contact contact)
+    public async Task<IEnumerable<Contact>> ChangeContact(Guid id, Contact contact)
     {
         var res = await ContactService.ChangeContact(id, contact);
         return res;
     }
     [HttpDelete("DeleteContact")]
-    public async Task<IEnumerable<Contact>> DeleteContact(int id)
+    public async Task<IEnumerable<Contact>> DeleteContact(Guid id)
     {
         var res = await ContactService.DeleteContact(id);
         return res;

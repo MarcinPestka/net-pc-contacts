@@ -5,6 +5,7 @@ import BasicCard from './Comonents/Card';
 import { Button, Container, Grid, Paper } from '@mui/material';
 import { contactData } from './model/shortData';
 import DetailsCard from './Comonents/DetailsCard';
+import {v4 as uuid} from "uuid";
 import axios from 'axios';
 import ContactFormCard from './Comonents/ContactForm';
 
@@ -87,7 +88,7 @@ function App() {
             firstName: contact.firstName,
             lastName: contact.lastName,
             email: contact.email,
-            id: 15,
+            id: uuid(),
             phoneNumber: contact.phoneNumber,
             birthDate: contact.birthDate,
             category: contact.category,
@@ -127,6 +128,12 @@ function App() {
     setEditMode(false);
     setSelectedContact(undefined);
   }
+  function handleDeleteContact(id:string){
+    deleteContact(id);
+    setEditMode(false);
+    setSelectedContact(undefined);
+    refresh();
+  }
 
   return (
       <Container maxWidth="xl" id="main-container">
@@ -134,7 +141,7 @@ function App() {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
     <Grid item xs={6} md={7}>
       {contacts && 
-      <BasicCard contacts={contacts} selectContact={handleSelectContact} deleteContact={deleteContact} refresh={refresh}></BasicCard>
+      <BasicCard contacts={contacts} selectContact={handleSelectContact} deleteContact={handleDeleteContact} refresh={refresh}></BasicCard>
       }
     </Grid>
     <Grid item xs={6} md={5}>
