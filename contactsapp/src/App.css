@@ -8,16 +8,21 @@
 }
 
 #card-title{
+  font-size: 12px;
   margin-bottom: 0px;
   margin-top: 0px;
 }
 
 #card-text-value{
+  font-size: 16px;
   margin-bottom: 0px;
   margin-top: 0px;
 }
 #card{
   margin-top: 14px;
+}
+#spacing-form{
+  padding-right: 15px;
 }
 
 #main-container{

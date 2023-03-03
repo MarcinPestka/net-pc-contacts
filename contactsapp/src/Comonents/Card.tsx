@@ -3,11 +3,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { shortData } from '../model/shortData';
+import { contactData } from '../model/shortData';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function BasicCard(props:{contacts:shortData[],selectContact:(id:string) => void}) {
+export default function BasicCard(props:{contacts:contactData[],selectContact:(id:string) => void,deleteContact:(id:string) => void,refresh:()=>void}) {
     const cards = props.contacts.map((text) =>(
         <Card sx={{ minWidth: 275 }} id="card" key={text.id}>
         <CardContent>
@@ -23,6 +24,9 @@ export default function BasicCard(props:{contacts:shortData[],selectContact:(id:
       <Grid item xs={2}>
       <IconButton aria-label="settings" onClick={()=>props.selectContact(text.id)}>
             <ReadMoreIcon />
+          </IconButton>
+      <IconButton aria-label="settings" onClick={()=>{props.deleteContact(text.id);props.refresh();}}>
+            <DeleteIcon />
           </IconButton>
       </Grid>
       </Grid>

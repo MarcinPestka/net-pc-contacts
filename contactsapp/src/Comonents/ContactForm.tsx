@@ -1,49 +1,53 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import { grey } from '@mui/material/colors';
-import EditIcon from '@mui/icons-material/Edit';
 import Grid from '@mui/material/Grid';
-import { shortData } from '../model/shortData';
-import { Button, TextField } from '@mui/material';
+import { contactData } from '../model/shortData';
+import { Button } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
-
-interface ExpandMoreProps extends IconButtonProps {
-    expand: boolean;
-}
+import { ChangeEvent, useEffect, useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AvatarSubstitution(firstName: string, lastName: string) {
     return firstName.substring(0, 1) + lastName.substring(0, 1).toLowerCase();
 }
-const currencies = [
-    {
-        value: 'Kierownik',
-        label: 'Kierownik',
-    },
-    {
-        value: 'Szef2',
-        label: 'Szef2',
-    },
-    {
-        value: 'Szef3',
-        label: 'Szef3',
-    },
-    {
-        value: 'Szef4',
-        label: 'Szef4',
-    },
-];
+interface Props {
+    contact: (contactData | undefined)
+    setEditMode: any
+    editContacts: any
+    refresh:any
+    setSelectedContact:any
+    setCreateMode:any
+  }
 
+  export default function ContactFormCard({ contact: test2, setEditMode, editContacts, refresh, setSelectedContact,setCreateMode }:Props) {
+    const [privateContact, setPrivate] = useState(false);
 
-export default function ContactFormCard(props:{contact:shortData,setEditMode:any}) {
+    const initContact = test2 ?? {
+        id:"",
+        firstName:"",
+        lastName:"",
+        email:"",
+        phoneNumber:"",
+        birthDate:"2023-03-01T19:51:47.929Z",
+        category:""
+    };
+
+    const [contact,setContact] = useState(initContact);
+    
+      function handleInputChange(event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        const {name,value} = event.target;
+        setContact({...contact,[name]:value});
+      }
+
     const test = "tesvart";
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 450 }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: grey[200] }}>
@@ -55,55 +59,75 @@ export default function ContactFormCard(props:{contact:shortData,setEditMode:any
 
                 title="Dodaj zdjęcie"
             />
-            <CardContent key={props.contact.id}>
-                <Grid>
-                    <Grid container rowSpacing={3}>
-                        <Grid item xs={6}>
-                            <TextField id="standard-basic" label="Imie" variant="standard" size="small" defaultValue={props.contact.firstName} />
+            <Form>
+                <CardContent key={contact.id}>
+                    <Grid >
+                        <Grid container rowSpacing={3}>
+                            <Grid item xs={6} id="spacing-form">
+                                <Form.Label>Imie</Form.Label>
+                                <Form.Control type="email" placeholder="Imie" name="firstName" value={contact.firstName} onChange={handleInputChange}/>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Form.Label>Nazwisko</Form.Label>
+                                <Form.Control type="email" placeholder="Imie" name="lastName" value={contact.lastName} onChange={handleInputChange}/>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextField id="standard-basic" label="Nazwisko" variant="standard" size="small" defaultValue={props.contact.lastName}/>
+                        <Grid container rowSpacing={1}>
+                            <Grid item xs={6} id="spacing-form">
+                                <Form.Label>Phone Number</Form.Label>
+                                <Form.Control type="email" placeholder="Phone Number" name="phoneNumber" value={contact.phoneNumber} onChange={handleInputChange}/>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" placeholder="Email" name="email" value={contact.email} onChange={handleInputChange}/>
+                            </Grid>
+                        </Grid>
+                        <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            label="Kontakt służbowy"
+                            onChange={(e) => { setPrivate(e.target.checked) }}
+                        />
+                        {privateContact &&
+                            <>
+                                <Form.Label>Kategoria</Form.Label>
+                                <Form.Select aria-label="Default select example">
+                                    <option>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </Form.Select>
+                            </>
+                        }
+                        {!privateContact &&
+                            <>
+                                <Form.Label>Kategoria</Form.Label>
+                                <Form.Control type="email" placeholder="Email" value={contact.category} onChange={handleInputChange}/>
+                            </>
+                        }
 
+                    </Grid>
+                    <Grid container rowSpacing={1}
+                        justifyContent="center"
+                        alignItems="center">
+                        <Grid item xs={6} container
+                            justifyContent="center"
+                            alignItems="center">
+                            <Button variant="outlined" color="error" onClick={() => {setEditMode(false);setCreateMode(false)}}>Anuluj</Button>
+                        </Grid>
+                        <Grid item xs={6} container
+                            justifyContent="center"
+                            alignItems="center">
+                            <Button variant="outlined" color="success" onClick={() => {editContacts(contact);refresh();setSelectedContact(undefined);setEditMode(false);setCreateMode(false)}}>Dodaj</Button>
                         </Grid>
                     </Grid>
-                    <Grid container rowSpacing={1}>
-                        <Grid item xs={6}>
-                            <TextField id="standard-basic" label="Numer telefonu" variant="standard" size="small" />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField id="standard-basic" label="Email" variant="standard" size="small">ets </TextField>
-                        </Grid>
-                    </Grid>
-                    <Grid container rowSpacing={1}>
-                        <Grid item xs={6}>
-                            <TextField id="standard-basic" label="Numer telefonu" variant="standard" size="small" />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="standard-select-currency-native"
-                                select
-                                label="Kategoria"
-                                SelectProps={{
-                                    native: true,
-                                }}
-                                variant="standard"
-                            >
-                                {currencies.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </TextField>
-                        </Grid>
-                    </Grid>
+                </CardContent>
+            </Form>
 
-                </Grid>
-                <Button variant="outlined" color="error" onClick={()=>{props.setEditMode(false)}}>Anuluj</Button>
-                <Button variant="outlined" color="success">Dodaj</Button>
-            </CardContent>
             <CardActions disableSpacing>
             </CardActions>
 
         </Card>
+
     );
 }

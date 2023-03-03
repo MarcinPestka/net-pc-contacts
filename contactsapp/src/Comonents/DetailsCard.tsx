@@ -9,7 +9,7 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { red } from '@mui/material/colors';
 import EditIcon from '@mui/icons-material/Edit';
 import Grid from '@mui/material/Grid';
-import { shortData } from '../model/shortData';
+import { contactData } from '../model/shortData';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -30,13 +30,13 @@ function AvatarSubstitution(firstName:string,lastName:string) {
     return firstName.substring(0,1)+lastName.substring(0,1).toLowerCase();
 }
 
-export default function RecipeReviewCard(props:{contact:shortData,setEditMode:any}) {
+export default function RecipeReviewCard(props:{contact:contactData,setEditMode:any}) {
     const [expanded, setExpanded] = React.useState(false);
 
     const AvatarString = AvatarSubstitution(props.contact.firstName,props.contact.lastName);
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 450 }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }}>
