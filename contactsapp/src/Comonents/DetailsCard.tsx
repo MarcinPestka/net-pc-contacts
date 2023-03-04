@@ -15,23 +15,11 @@ interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
 }
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
-
 function AvatarSubstitution(firstName: string, lastName: string) {
     return firstName.substring(0, 1) + lastName.substring(0, 1).toLowerCase();
 }
 
 export default function RecipeReviewCard(props: { contact: contactData, setEditMode: any }) {
-    const [expanded, setExpanded] = React.useState(false);
 
     const AvatarString = AvatarSubstitution(props.contact.firstName, props.contact.lastName);
 

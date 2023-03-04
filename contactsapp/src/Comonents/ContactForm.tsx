@@ -142,7 +142,7 @@ export default function ContactFormCard({ contact: test2,categories:categories, 
                         <Grid item xs={6} container
                             justifyContent="center"
                             alignItems="center">
-                            <Button variant="outlined" color="error" onClick={() => { setEditMode(false); setCreateMode(false) }}>Anuluj</Button>
+                            <Button variant="outlined" color="error" onClick={() => { setEditMode(false); setCreateMode(false); setSelectedContact(undefined) }}>Anuluj</Button>
                         </Grid>
                         <Grid item xs={6} container
                             justifyContent="center"

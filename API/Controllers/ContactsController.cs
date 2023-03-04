@@ -7,7 +7,7 @@ namespace API.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class ContatcsController : ControllerBase
-{    
+{
     private readonly IContact ContactService;
     public ContatcsController(IContact ContactService)
     {
