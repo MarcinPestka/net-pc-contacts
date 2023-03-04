@@ -5,11 +5,12 @@ import BasicCard from './Comonents/Card';
 import { Button, Container, Grid, Paper } from '@mui/material';
 import { contactData } from './model/shortData';
 import DetailsCard from './Comonents/DetailsCard';
-import {v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 import axios from 'axios';
 import ContactFormCard from './Comonents/ContactForm';
+import categories from './model/categories';
 
-function mapContacts(responseData:contactData[]) {
+function mapContacts(responseData: contactData[]) {
   if (responseData.length != 0) {
     const Contacts = (responseData.map(Contact => ({
       id: Contact.id,
@@ -22,37 +23,37 @@ function mapContacts(responseData:contactData[]) {
     })))
     console.log(Contacts);
     return Contacts;
-    
+
   }
 }
 
-const sleep = (delay: number) =>{
-  return new Promise((resolve) =>{
-      setTimeout(resolve, delay)
+const sleep = (delay: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay)
   })
 }
 
-async function getContacts({setContacts}:any) {
+async function getContacts({ setContacts }: any) {
   await sleep(100);
-   axios({
+  axios({
     method: 'get',
     url: 'http://localhost:5000/Contatcs/GetAllContacts',
   }).then(function (response) {
     setContacts(mapContacts(response.data));
-    });
+  });
 }
-async function editContacts(id:string,contact:contactData) {
-   axios({
+async function editContacts(id: string, contact: contactData) {
+  axios({
     method: 'put',
-    url: 'http://localhost:5000/Contatcs/ChangeContact?id='+id,
+    url: 'http://localhost:5000/Contatcs/ChangeContact?id=' + id,
     data: {
-        firstName: contact.firstName,
-        lastName: contact.lastName,
-        email: contact.email,
-        id: contact.id,
-        phoneNumber: contact.phoneNumber,
-        birthDate: contact.birthDate,
-        category: contact.category,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      email: contact.email,
+      id: contact.id,
+      phoneNumber: contact.phoneNumber,
+      birthDate: contact.birthDate,
+      category: contact.category,
     }
   })
 }
@@ -60,57 +61,57 @@ async function editContacts(id:string,contact:contactData) {
 function App() {
   const [contacts, setContacts] = useState<contactData[]>([]);
   const [selectedContact, setSelectedContact] = useState<contactData | undefined>();
-  const [edit,setEditMode] = useState(false);
-  const [create,setCreateMode] = useState(false);
+  const [edit, setEditMode] = useState(false);
+  const [create, setCreateMode] = useState(false);
+  const [categories, setCategories] = useState<categories[]>([]);
 
-  function createOrEdit(contact:contactData){
+  function createOrEdit(contact: contactData) {
     if (contact.id) {
       axios({
         method: 'put',
-        url: 'http://localhost:5000/Contatcs/ChangeContact?id='+contact.id,
+        url: 'http://localhost:5000/Contatcs/ChangeContact?id=' + contact.id,
         data: {
-            firstName: contact.firstName,
-            lastName: contact.lastName,
-            email: contact.email,
-            id: contact.id,
-            phoneNumber: contact.phoneNumber,
-            birthDate: contact.birthDate,
-            category: contact.category,
+          firstName: contact.firstName,
+          lastName: contact.lastName,
+          email: contact.email,
+          id: contact.id,
+          phoneNumber: contact.phoneNumber,
+          birthDate: contact.birthDate,
+          category: contact.category,
         }
       })
-    }else{
+    } else {
       axios({
         method: 'post',
         url: 'http://localhost:5000/Contatcs/AddContact',
         data: {
-            firstName: contact.firstName,
-            lastName: contact.lastName,
-            email: contact.email,
-            id: uuid(),
-            phoneNumber: contact.phoneNumber,
-            birthDate: contact.birthDate,
-            category: contact.category,
+          firstName: contact.firstName,
+          lastName: contact.lastName,
+          email: contact.email,
+          id: uuid(),
+          phoneNumber: contact.phoneNumber,
+          birthDate: contact.birthDate,
+          category: contact.category,
         }
       })
-
     }
   }
 
 
-  function refresh(){
-    getContacts({setContacts});
+  function refresh() {
+    getContacts({ setContacts });
   }
 
   useEffect(() => {
-      getContacts({setContacts});
-      getAllCategories();
+    getContacts({ setContacts });
+    getAllCategories();
   }, []);
 
   useEffect(() => {
     setEditMode(edit);
   }, [edit]);
 
-  function handleSelectContact(id:string){
+  function handleSelectContact(id: string) {
     setSelectedContact(contacts.find(x => x.id === id));
   }
 
@@ -119,24 +120,24 @@ function App() {
       method: 'get',
       url: 'http://localhost:5000/Categories/GetAllCategories',
     }).then(function (response) {
-      console.log(response.data);
-      });
+      setCategories(response.data);
+    });
   }
 
-  async function deleteContact(id:string) {
+  async function deleteContact(id: string) {
     console.log("test")
     axios({
       method: 'delete',
-      url: 'http://localhost:5000/Contatcs/DeleteContact?id='+id,
+      url: 'http://localhost:5000/Contatcs/DeleteContact?id=' + id,
     })
   }
 
-  function handleCreateMode(){
+  function handleCreateMode() {
     setCreateMode(true);
     setEditMode(false);
     setSelectedContact(undefined);
   }
-  function handleDeleteContact(id:string){
+  function handleDeleteContact(id: string) {
     deleteContact(id);
     setEditMode(false);
     setSelectedContact(undefined);
@@ -144,33 +145,35 @@ function App() {
   }
 
   return (
-      <Container maxWidth="xl" id="main-container">
-        <Button onClick={()=>handleCreateMode()}>Test</Button>
+    <Container maxWidth="xl" id="main-container">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-    <Grid item xs={6} md={7}>
-      {contacts && 
-      <BasicCard contacts={contacts} selectContact={handleSelectContact} deleteContact={handleDeleteContact} refresh={refresh}></BasicCard>
-      }
-    </Grid>
-    <Grid item xs={6} md={5}>
+        <Grid item xs={6} md={7}>
+          {contacts &&
+            <BasicCard contacts={contacts} selectContact={handleSelectContact} deleteContact={handleDeleteContact} refresh={refresh}></BasicCard>
+          }
+        </Grid>
+        <Grid item xs={6} md={5} 
+                        justifyContent="center"
+                        alignItems="center">
+        <Button variant="outlined" color="success" onClick={() => handleCreateMode()}>Dodaj nowy kontakt</Button>
 
-      {selectedContact && !edit &&
-      <>
-      <DetailsCard contact={selectedContact} setEditMode={setEditMode}></DetailsCard>
-      </>
-      }
+          {selectedContact && !edit &&
+            <>
+              <DetailsCard contact={selectedContact} setEditMode={setEditMode}></DetailsCard>
+            </>
+          }
 
-      {create && 
-      <ContactFormCard contact={undefined} setEditMode={setEditMode} setCreateMode={setCreateMode} editContacts={createOrEdit} refresh={refresh} setSelectedContact={setSelectedContact}></ContactFormCard>
-      }
+          {create &&
+            <ContactFormCard categories={categories} contact={undefined} setEditMode={setEditMode} setCreateMode={setCreateMode} editContacts={createOrEdit} refresh={refresh} setSelectedContact={setSelectedContact}></ContactFormCard>
+          }
 
-      {selectedContact && edit &&
-      <ContactFormCard contact={selectedContact} setEditMode={setEditMode} setCreateMode={setCreateMode} editContacts={createOrEdit} refresh={refresh} setSelectedContact={setSelectedContact}></ContactFormCard>
-      }
+          {selectedContact && edit &&
+            <ContactFormCard categories={categories} contact={selectedContact} setEditMode={setEditMode} setCreateMode={setCreateMode} editContacts={createOrEdit} refresh={refresh} setSelectedContact={setSelectedContact}></ContactFormCard>
+          }
 
-    </Grid>
-    </Grid>
-      </Container>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

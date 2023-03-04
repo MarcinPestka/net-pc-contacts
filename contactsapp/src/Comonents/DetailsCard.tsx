@@ -26,14 +26,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     }),
 }));
 
-function AvatarSubstitution(firstName:string,lastName:string) {
-    return firstName.substring(0,1)+lastName.substring(0,1).toLowerCase();
+function AvatarSubstitution(firstName: string, lastName: string) {
+    return firstName.substring(0, 1) + lastName.substring(0, 1).toLowerCase();
 }
 
-export default function RecipeReviewCard(props:{contact:contactData,setEditMode:any}) {
+export default function RecipeReviewCard(props: { contact: contactData, setEditMode: any }) {
     const [expanded, setExpanded] = React.useState(false);
 
-    const AvatarString = AvatarSubstitution(props.contact.firstName,props.contact.lastName);
+    const AvatarString = AvatarSubstitution(props.contact.firstName, props.contact.lastName);
 
     return (
         <Card sx={{ maxWidth: 450 }}>
@@ -44,7 +44,7 @@ export default function RecipeReviewCard(props:{contact:contactData,setEditMode:
                     </Avatar>
                 }
                 action={
-                    <IconButton aria-label="edit" onClick={() => {props.setEditMode(true)}}>
+                    <IconButton aria-label="edit" onClick={() => { props.setEditMode(true) }}>
                         <EditIcon />
                     </IconButton>
                 }
