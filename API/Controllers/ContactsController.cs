@@ -1,4 +1,5 @@
 using API.Services.ContactServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -19,6 +20,7 @@ public class ContatcsController : ControllerBase
         var res = await ContactService.GetAllContacts();
         return res;
     }
+
     [HttpGet("GetOneContacts")]
     public async Task<Contact> GetOneContact(Guid id)
     {

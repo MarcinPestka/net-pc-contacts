@@ -41,3 +41,16 @@
 /Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/MySqlConnector.dll
 /Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Pomelo.EntityFrameworkCore.MySql.dll
 /Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/System.CodeDom.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.Extensions.Identity.Core.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.Extensions.Identity.Stores.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.IdentityModel.Logging.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/Users/marcinpestka/Desktop/Net_pc/API/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
