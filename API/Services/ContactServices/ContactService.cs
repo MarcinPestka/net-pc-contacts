@@ -38,9 +38,9 @@ public class ContactService : IContact
         return await this.context.Contacts.ToListAsync();
     }
 
-    public async Task<IEnumerable<Contact>> GetAllContacts()
+    public async Task<IEnumerable<Contact>> GetAllContacts(Guid userID)
     {
-        var contacts = await this.context.Contacts.ToListAsync();
+        var contacts = await this.context.Contacts.Where(contact => contact.userId == userID).ToListAsync();
         return contacts;
     }
 

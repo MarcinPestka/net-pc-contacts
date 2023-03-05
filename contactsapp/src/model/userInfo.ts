@@ -1,4 +1,5 @@
 export default interface userInfo{
+    Id?:string,
     username?:string,
     firstName?:string,
     lastName?:string,

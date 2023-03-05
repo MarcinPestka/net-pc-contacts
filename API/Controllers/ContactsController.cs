@@ -15,15 +15,16 @@ public class ContatcsController : ControllerBase
     }
 
     [HttpGet("GetAllContacts")]
-    public async Task<IEnumerable<Contact>> GetAllContacts()
+    public async Task<IEnumerable<Contact>> GetAllContacts(Guid userId)
     {
-        var res = await ContactService.GetAllContacts();
+        var res = await ContactService.GetAllContacts(userId);
         return res;
     }
 
     [HttpGet("GetOneContacts")]
     public async Task<Contact> GetOneContact(Guid id)
     {
+        
         var res = await ContactService.GetOneContact(id);
         return res;
     }

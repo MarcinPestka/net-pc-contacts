@@ -8,10 +8,12 @@ import DetailsCard from '../Comonents/DetailsCard';
 import { v4 as uuid } from "uuid";
 import axios from 'axios';
 import ContactFormCard from '../Comonents/ContactForm';
-import categories from '../model/categories';
+import category from '../model/categories';
 import { useStore } from '../stores/store';
 import { observer } from 'mobx-react-lite';
 import Navbar from '../Comonents/Navbar';
+import { isConstructorDeclaration } from 'typescript';
+import BasicCard2 from '../Comonents/Card copy';
 
 
 function mapContacts(responseData: contactData[]) {
@@ -24,6 +26,7 @@ function mapContacts(responseData: contactData[]) {
       email: Contact.email,
       birthDate: Contact.birthDate,
       category: Contact.category,
+      isPrivate: Contact.isPrivate,
     })))
     console.log(Contacts);
     return Contacts;
@@ -39,23 +42,23 @@ const sleep = (delay: number) => {
 
 
 function App() {
-  const {userStore : {user}} = useStore();
+  const {userStore:{user}} = useStore();
   const [contacts, setContacts] = useState<contactData[]>([]);
   const [selectedContact, setSelectedContact] = useState<contactData | undefined>();
   const [edit, setEditMode] = useState(false);
   const [create, setCreateMode] = useState(false);
-  const [categories, setCategories] = useState<categories[]>([]);
-
-
-
+  const [categories, setCategories] = useState<category[]>([]);
+  
+  const userIde = JSON.parse(localStorage.getItem("UserStore") || '{}').userId;
+  const jwt = "Bearer "+JSON.parse(localStorage.getItem("UserStore") || '{}').token;
 
   async function getContacts({ setContacts }: any) {
   await sleep(100);
   axios({
     method: 'get',
-    url: 'http://localhost:5000/Contatcs/GetAllContacts',
+    url: 'http://localhost:5000/Contatcs/GetAllContacts?userId='+userIde,
     headers:{
-      Authorization: "Bearer "+localStorage.getItem("jwt"),
+      Authorization: jwt,
     } 
   }).then(function (response) {
     setContacts(mapContacts(response.data));
@@ -75,10 +78,10 @@ function App() {
           id: contact.id,
           phoneNumber: contact.phoneNumber,
           birthDate: contact.birthDate,
-          category: contact.category,
+          category: contact.category
         },
         headers:{
-          Authorization: "Bearer "+localStorage.getItem("jwt"),
+          Authorization: jwt,
         } 
       })
     } else {
@@ -93,9 +96,10 @@ function App() {
           phoneNumber: contact.phoneNumber,
           birthDate: contact.birthDate,
           category: contact.category,
+          userId:userIde,
         },
         headers:{
-          Authorization: "Bearer "+localStorage.getItem("jwt"),
+          Authorization: jwt,
         } 
       })
     }
@@ -126,7 +130,7 @@ function App() {
       method: 'get',
       url: 'http://localhost:5000/Categories/GetAllCategories',
       headers:{
-        Authorization: "Bearer "+localStorage.getItem("jwt"),
+        Authorization: jwt,
       } 
     }).then(function (response) {
       setCategories(response.data);
@@ -139,7 +143,7 @@ function App() {
       method: 'delete',
       url: 'http://localhost:5000/Contatcs/DeleteContact?id=' + id,
       headers:{
-        Authorization: "Bearer "+localStorage.getItem("jwt"),
+        Authorization: jwt,
       } 
     })
   }
@@ -161,12 +165,12 @@ function App() {
     <Navbar></Navbar>
     <Container maxWidth="xl" id="main-container">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6} md={7}>
+        <Grid item xs={12} sm={7} md={7}>
           {contacts &&
             <BasicCard contacts={contacts} selectContact={handleSelectContact} deleteContact={handleDeleteContact} refresh={refresh}></BasicCard>
           }
         </Grid>
-        <Grid item xs={6} md={5} 
+        <Grid item xs={12} sm={5} md={5}  
                         justifyContent="center"
                         alignItems="center">
         <Button variant="outlined" color="success" onClick={() => handleCreateMode()}>Dodaj nowy kontakt</Button>

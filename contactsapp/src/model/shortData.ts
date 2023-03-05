@@ -6,4 +6,5 @@ export interface contactData{
     phoneNumber:string;
     birthDate:Date;
     category:string;
+    isPrivate:boolean;
 };

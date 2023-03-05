@@ -12,7 +12,7 @@ import UploadIcon from '@mui/icons-material/Upload';
 import { ChangeEvent, useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import categories from '../model/categories';
+import category from '../model/categories';
 
 function AvatarSubstitution(firstName: string, lastName: string) {
     return firstName.substring(0, 1) + lastName.substring(0, 1).toLowerCase();
@@ -24,12 +24,12 @@ interface Props {
     refresh: any
     setSelectedContact: any
     setCreateMode: any
-    categories: categories[]
+    categories: category[]
 }
 
 export default function ContactFormCard({ contact: test2,categories:categories, setEditMode, editContacts, refresh, setSelectedContact, setCreateMode }: Props) {
     const [privateContact, setPrivate] = useState(false);
-    const [value, setValue] = useState<categories | null | undefined>(null);
+    const [value, setValue] = useState<category | null | undefined>(null);
 
     const initContact = test2 ?? {
         id: "",
@@ -38,7 +38,8 @@ export default function ContactFormCard({ contact: test2,categories:categories, 
         email: "",
         phoneNumber: "",
         birthDate: "2023-03-01T19:51:47.929Z",
-        category: ""
+        category: "",
+        isPrivate: false
     };
 
     const [contact, setContact] = useState(initContact);
@@ -48,17 +49,27 @@ export default function ContactFormCard({ contact: test2,categories:categories, 
         setContact({ ...contact, [name]: value });
     }
 
+    function changeCategoryName(stringe:string|undefined) {
+        setContact({ ...contact, ["category"]: stringe || "" })
+      }
+
+      useEffect(()=>{
+        if(!contact.isPrivate){
+            document.getElementById('check')?.click();
+        }
+      },[])
+
     useEffect(() => {
         if(value != null && value != undefined){
-            contact.category = value.categoryName.toString();
         }
-        console.log(contact);
       }, [value]);
     
+      function lookForCategory(categoryName2:string){
+        return categories.find(category => category.categoryName == categoryName2);
+      }
 
-    const test = "tesvart";
     return (
-        <Card sx={{ maxWidth: 450 }}>
+        <Card >
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: grey[200] }}>
@@ -95,43 +106,47 @@ export default function ContactFormCard({ contact: test2,categories:categories, 
                         </Grid>
                         <Form.Check
                             type="switch"
-                            id="custom-switch"
                             label="Kontakt służbowy"
+                            id="check"
                             onChange={(e) => { setPrivate(e.target.checked) }}
                         />
                         {privateContact &&
                             <>
+                            <Grid item>
                                 <Autocomplete
                                 multiple={false}
-                                value={value}
-                                onChange={(event: any, newValue: categories | null) => {
-                                    setValue(newValue);
+                                value={lookForCategory(contact.category)}
+                                onChange={(event: any, newValue: category | null) => {
+                                    changeCategoryName(newValue?.categoryName);
                                 }}
                                 disablePortal
+                                fullWidth
                                 size="small"
                                 id="combo-box-demo"
                                 options={categories}
                                 getOptionLabel={(option) => option.categoryName || ""}
-                                sx={{ width: 300 }}
                                 renderInput={(params:any) => <TextField {...params} label="Kategoria"/>}
                                 />
+                            </Grid>
                             </>
                         }
                         {!privateContact &&
                             <>
+                            <Grid item>
                                 <Autocomplete
-                                value={value}
-                                onChange={(event: any, newValue: categories | null) => {
-                                    setValue(newValue);
+                                value={lookForCategory(contact.category)}
+                                onChange={(event: any, newValue: category | null) => {
+                                    changeCategoryName(newValue?.categoryName);
                                 }}
                                 disablePortal
+                                fullWidth
                                 size="small"
                                 id="combo-box-demo"
                                 options={categories}
                                 getOptionLabel={(option) => option.categoryName || ""}
-                                sx={{ width: 300 }}
                                 renderInput={(params:any) => <TextField {...params} label="Kategoria"/>}
                                 />
+                            </Grid>
                             </>
                         }
 

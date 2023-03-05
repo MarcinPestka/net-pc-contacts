@@ -15,13 +15,12 @@ export default function ContactFormCard() {
         email: "",
         password: "",
     };
-    
+
     const [user,setUserInfo] =  useState<userInfo>(initContact);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
         setUserInfo({ ...user, [name]: value });
-        console.log(user);
     }
 
     return (
@@ -30,12 +29,12 @@ export default function ContactFormCard() {
                 <Grid >
                     <Grid container rowSpacing={3}>
                         <Grid item xs={6} id="spacing-form">
-                            <Form.Label>Imie</Form.Label>
+                            <Form.Label>Email</Form.Label>
                             <Form.Control type="email" placeholder="Imie" name="email" onChange={handleInputChange}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <Form.Label>Nazwisko</Form.Label>
-                            <Form.Control type="email" placeholder="Imie" name="password" onChange={handleInputChange} />
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Imie" name="password" onChange={handleInputChange} />
                         </Grid>
                         <Button variant="outlined" color="error" onClick={() =>{userStore.login(user)}}>Dodaj</Button>
                     </Grid>

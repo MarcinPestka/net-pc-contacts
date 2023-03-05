@@ -10,16 +10,16 @@ export default function BasicCard(props: { contacts: contactData[], selectContac
   const cards = props.contacts.map((text) => (
     <Card sx={{ minWidth: 275 }} id="card" key={text.id}>
       <CardContent>
-        <Grid container rowSpacing={1}>
-          <Grid item xs={5}>
+        <Grid container rowSpacing={1} >
+          <Grid item xs={4}>
             <p id="card-title">Imie</p>
             <h3 id="card-text-value">{text.firstName}</h3>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <p id="card-title">Nazwisko</p>
             <h3 id="card-text-value">{text.lastName}</h3>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={4} display="flex" justifyContent="flex-end">
             <IconButton aria-label="settings" onClick={() => props.selectContact(text.id)}>
               <ReadMoreIcon />
             </IconButton>

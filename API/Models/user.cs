@@ -6,5 +6,6 @@ namespace API.Models
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public List<Contact> Contacts {get;set;}
     }
 }

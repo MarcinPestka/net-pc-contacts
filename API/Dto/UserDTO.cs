@@ -4,6 +4,7 @@ namespace API.Dto
 {
     public class UserDTO
     {
+        public Guid Id {get;set;}
         [Required]
         public string firstName { get; set; }
         [Required]

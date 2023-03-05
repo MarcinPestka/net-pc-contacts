@@ -3,24 +3,17 @@ import axios from 'axios';
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { Navigate } from 'react-router-dom';
 import { router } from '../index';
+import { makePersistable } from 'mobx-persist-store';
 
 export default class UserStore {
     user: userInfo | null = null;
     token: string | null = localStorage.getItem("jwt");
+    userId: string | undefined = this.user?.Id;
 
     constructor(){
         makeAutoObservable(this);
 
-        reaction(
-            () => this.token,
-            token => {
-                if (token) {
-                    localStorage.setItem('jwt', token)
-                } else {
-                    localStorage.removeItem('jwt')
-                }
-            }
-        )
+        makePersistable(this, { name: 'UserStore', properties: ['userId','token'], storage: window.localStorage });
     }
 
     get isLoggedIn(){
@@ -37,41 +30,22 @@ export default class UserStore {
                 return response.data;
               });
               this.setToken(user.token);
-            runInAction(() => this.user = user);
+              runInAction(() => this.user = user);
+              this.userId = user.id;
               router.navigate("/");
             }
-        catch{
-            
+        catch(error){
+            console.log(error);
         }
     }
 
     logout = () =>{
-        this.setToken(null);
-        this.user = null;
+        console.log("test");
+        localStorage.removeItem("UserStore");
         router.navigate("/login");
-    }
-
-    getUser = async (creds:userInfo) => {
-        try{
-            const user = await axios({
-                method: 'get',
-                url: 'http://localhost:5000/Accout/getUser',
-                headers:{
-                  Authorization: "Bearer "+creds?.token?.toString(),
-                } 
-              }).then(function (response) {
-                return response.data;
-              });
-              console.log("test");
-              runInAction(() => this.user = user);
-        } catch (error){
-            console.log(error);
-        }
     }
 
     setToken = (token: string | null) => {
         this.token = token;
     }
-
-
 }

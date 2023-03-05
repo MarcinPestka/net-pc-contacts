@@ -28,6 +28,7 @@ namespace API.Controllers
                 token = tokenService.CreateToken(user),
                 firstName = user.firstName,
                 lastName = user.lastName,
+                Id = Guid.Parse(user.Id),
             };
         }
         [AllowAnonymous]
@@ -71,7 +72,7 @@ namespace API.Controllers
                 {
                     firstName = user.firstName,
                     lastName = user.lastName,
-                    token = "123",
+                    token = tokenService.CreateToken(user),
                     UserName = user.UserName
                 };
             }

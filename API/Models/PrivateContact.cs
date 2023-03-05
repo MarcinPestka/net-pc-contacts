@@ -11,4 +11,6 @@ public class Contact
     public string PhoneNumber { get; set; }
     public DateTime BirthDate { get; set; }
     public string Category { get; set; }
+    public bool isPrivate { get; set; }
+    public Guid userId {get;set;}
 }

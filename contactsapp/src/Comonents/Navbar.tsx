@@ -16,7 +16,7 @@ function BasicExample() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            <Button onClick={() => {localStorage.removeItem("jwt"); router.navigate("/login")}}>Wyloguj</Button>
+            <Button onClick={() => {localStorage.removeItem("UserStore"); router.navigate("/login")}}>Wyloguj</Button>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
