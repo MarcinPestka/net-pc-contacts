@@ -5,6 +5,7 @@ import App from './Routes/App';
 import Login from './Routes/Login';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Register from './Routes/Register';
 
 
 export const router = createBrowserRouter([
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
   {
     path: "login/",
     element: <Login/>,
+  },
+  {
+    path: "register/",
+    element: <Register/>,
   },
 ]);
 

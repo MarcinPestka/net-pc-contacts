@@ -48,7 +48,8 @@ function App() {
   const [edit, setEditMode] = useState(false);
   const [create, setCreateMode] = useState(false);
   const [categories, setCategories] = useState<category[]>([]);
-  
+  const [logedIn, setLoggedIn] = useState(false);
+
   const userIde = JSON.parse(localStorage.getItem("UserStore") || '{}').userId;
   const jwt = "Bearer "+JSON.parse(localStorage.getItem("UserStore") || '{}').token;
 
@@ -56,7 +57,7 @@ function App() {
   await sleep(100);
   axios({
     method: 'get',
-    url: 'http://localhost:5000/Contatcs/GetAllContacts?userId='+userIde,
+    url: 'http://localhost:5000/Contatcs/GetAllContactsUnAuth',
     headers:{
       Authorization: jwt,
     } 
@@ -104,7 +105,10 @@ function App() {
       })
     }
   }
-
+  useEffect(() => {
+    getContacts({ setContacts });
+    getAllCategories();
+  }, []);
 
   async function refresh() {
     await sleep(100);
@@ -112,9 +116,10 @@ function App() {
   }
 
   useEffect(() => {
-    getContacts({ setContacts });
-    getAllCategories();
-  }, []);
+    if(jwt != "Bearer null"){
+      setLoggedIn(true);
+    }
+  }, [jwt]);
 
   useEffect(() => {
     setEditMode(edit);
@@ -162,12 +167,12 @@ function App() {
 
   return (
     <>
-    <Navbar></Navbar>
+    <Navbar logedIn={logedIn}></Navbar>
     <Container maxWidth="xl" id="main-container">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={12} sm={7} md={7}>
           {contacts &&
-            <BasicCard contacts={contacts} selectContact={handleSelectContact} deleteContact={handleDeleteContact} refresh={refresh}></BasicCard>
+            <BasicCard contacts={contacts} selectContact={handleSelectContact} deleteContact={handleDeleteContact} refresh={refresh} logedIn={logedIn}></BasicCard>
           }
         </Grid>
         <Grid item xs={12} sm={5} md={5}  
@@ -177,7 +182,7 @@ function App() {
 
           {selectedContact && !edit &&
             <>
-              <DetailsCard contact={selectedContact} setEditMode={setEditMode}></DetailsCard>
+              <DetailsCard contact={selectedContact} setEditMode={setEditMode} logedIn={logedIn} setSelectedContact={setSelectedContact}></DetailsCard>
             </>
           }
 

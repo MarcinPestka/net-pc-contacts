@@ -30,6 +30,7 @@ interface Props {
 export default function ContactFormCard({ contact: test2,categories:categories, setEditMode, editContacts, refresh, setSelectedContact, setCreateMode }: Props) {
     const [privateContact, setPrivate] = useState(false);
     const [value, setValue] = useState<category | null | undefined>(null);
+    const [validated, setValidated] = useState(false);
 
     const initContact = test2 ?? {
         id: "",
@@ -68,6 +69,22 @@ export default function ContactFormCard({ contact: test2,categories:categories, 
         return categories.find(category => category.categoryName == categoryName2);
       }
 
+      const handleSubmit = (event:any) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }else{
+            editContacts(contact); 
+            refresh(); 
+            setSelectedContact(undefined); 
+            setEditMode(false); 
+            setCreateMode(false)
+        }
+        console.log("unvalid");
+        setValidated(true);
+      };
+
     return (
         <Card >
             <CardHeader
@@ -81,27 +98,27 @@ export default function ContactFormCard({ contact: test2,categories:categories, 
 
                 title="Dodaj zdjęcie"
             />
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <CardContent key={contact.id}>
                     <Grid >
                         <Grid container rowSpacing={3}>
                             <Grid item xs={6} id="spacing-form">
                                 <Form.Label>Imie</Form.Label>
-                                <Form.Control type="email" placeholder="Imie" name="firstName" value={contact.firstName} onChange={handleInputChange} />
+                                <Form.Control required placeholder="Imie" name="firstName" value={contact.firstName} onChange={handleInputChange} />
                             </Grid>
                             <Grid item xs={6}>
                                 <Form.Label>Nazwisko</Form.Label>
-                                <Form.Control type="email" placeholder="Imie" name="lastName" value={contact.lastName} onChange={handleInputChange} />
+                                <Form.Control required placeholder="Imie" name="lastName" value={contact.lastName} onChange={handleInputChange} />
                             </Grid>
                         </Grid>
                         <Grid container rowSpacing={1}>
                             <Grid item xs={6} id="spacing-form">
                                 <Form.Label>Phone Number</Form.Label>
-                                <Form.Control type="email" placeholder="Phone Number" name="phoneNumber" value={contact.phoneNumber} onChange={handleInputChange} />
+                                <Form.Control required placeholder="Phone Number" name="phoneNumber" value={contact.phoneNumber} onChange={handleInputChange} />
                             </Grid>
                             <Grid item xs={6}>
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" placeholder="Email" name="email" value={contact.email} onChange={handleInputChange} />
+                                <Form.Control required type="email" placeholder="Email" name="email" value={contact.email} onChange={handleInputChange} />
                             </Grid>
                         </Grid>
                         <Form.Check
@@ -162,7 +179,7 @@ export default function ContactFormCard({ contact: test2,categories:categories, 
                         <Grid item xs={6} container
                             justifyContent="center"
                             alignItems="center">
-                            <Button variant="outlined" color="success" onClick={() => { editContacts(contact); refresh(); setSelectedContact(undefined); setEditMode(false); setCreateMode(false) }}>Dodaj</Button>
+                            <Button variant="outlined" color="success" type='submit'>Dodaj</Button> 
                         </Grid>
                     </Grid>
                 </CardContent>

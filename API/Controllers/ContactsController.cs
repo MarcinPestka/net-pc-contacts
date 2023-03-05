@@ -20,6 +20,13 @@ public class ContatcsController : ControllerBase
         var res = await ContactService.GetAllContacts(userId);
         return res;
     }
+    [AllowAnonymous]
+    [HttpGet("GetAllContactsUnAuth")]
+    public async Task<IEnumerable<Contact>> GetAllContactsUnAuth()
+    {
+        var res = await ContactService.GetAllContactsUnAuth();
+        return res;
+    }
 
     [HttpGet("GetOneContacts")]
     public async Task<Contact> GetOneContact(Guid id)

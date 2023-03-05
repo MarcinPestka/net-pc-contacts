@@ -6,17 +6,19 @@ import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useStore } from '../stores/store';
 import userInfo from '../model/userInfo';
+import { Col, Container, Row, Stack } from 'react-bootstrap';
+import { router } from '../index';
 
 
 export default function ContactFormCard() {
-    const {userStore} = useStore();
+    const { userStore } = useStore();
 
-    const initContact:userInfo = {
+    const initContact: userInfo = {
         email: "",
         password: "",
     };
 
-    const [user,setUserInfo] =  useState<userInfo>(initContact);
+    const [user, setUserInfo] = useState<userInfo>(initContact);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
@@ -25,21 +27,26 @@ export default function ContactFormCard() {
 
     return (
         <Form>
-            <CardContent>
-                <Grid >
-                    <Grid container rowSpacing={3}>
-                        <Grid item xs={6} id="spacing-form">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" placeholder="Imie" name="email" onChange={handleInputChange}/>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Imie" name="password" onChange={handleInputChange} />
-                        </Grid>
-                        <Button variant="outlined" color="error" onClick={() =>{userStore.login(user)}}>Dodaj</Button>
-                    </Grid>
-                </Grid>
-            </CardContent>
+            <Container >
+                <Row className="justify-content-md-center">
+                    <Col md lg="4">
+                        <Row >
+                            <Form.Label>Hasło</Form.Label>
+                            <Form.Control type="email" placeholder="Email" name="email" onChange={handleInputChange} />
+                        </Row>
+                        <Row>
+                            <Form.Label>Hasło</Form.Label>
+                            <Form.Control type="password" placeholder="Hasło" name="password" onChange={handleInputChange} />
+                        </Row>
+                        <Row id="row-margin-top">
+                            <Stack gap={2}>
+                            <Button variant="outlined" color="success" onClick={() => { userStore.login(user) }}>Zaloguj</Button>
+                            <Button variant="outlined" color="warning" onClick={() => { router.navigate("/register") }}>Zarejstruj się</Button>
+                            </Stack>
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
         </Form>
     );
 }

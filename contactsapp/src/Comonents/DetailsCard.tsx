@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { red } from '@mui/material/colors';
 import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import Grid from '@mui/material/Grid';
 import { contactData } from '../model/shortData';
 
@@ -19,7 +20,7 @@ function AvatarSubstitution(firstName: string, lastName: string) {
     return firstName.substring(0, 1) + lastName.substring(0, 1).toLowerCase();
 }
 
-export default function RecipeReviewCard(props: { contact: contactData, setEditMode: any }) {
+export default function RecipeReviewCard(props: { contact: contactData, logedIn: any, setEditMode: any, setSelectedContact: any }) {
 
     const AvatarString = AvatarSubstitution(props.contact.firstName, props.contact.lastName);
 
@@ -32,8 +33,8 @@ export default function RecipeReviewCard(props: { contact: contactData, setEditM
                     </Avatar>
                 }
                 action={
-                    <IconButton aria-label="edit" onClick={() => { props.setEditMode(true) }}>
-                        <EditIcon />
+                    <IconButton onClick={()=>props.setSelectedContact(undefined)}>
+                        <CloseIcon />
                     </IconButton>
                 }
 
@@ -63,6 +64,11 @@ export default function RecipeReviewCard(props: { contact: contactData, setEditM
                         </Grid>
                     </Grid>
                 </Grid>
+                {props.logedIn &&
+                    <IconButton aria-label="edit" onClick={() => { props.setEditMode(true) }}>
+                        <EditIcon />
+                    </IconButton>
+                }
             </CardContent>
             <CardActions disableSpacing>
             </CardActions>

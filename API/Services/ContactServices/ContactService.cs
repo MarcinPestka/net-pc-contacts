@@ -43,6 +43,11 @@ public class ContactService : IContact
         var contacts = await this.context.Contacts.Where(contact => contact.userId == userID).ToListAsync();
         return contacts;
     }
+    public async Task<IEnumerable<Contact>> GetAllContactsUnAuth()
+    {
+        var contacts = await this.context.Contacts.ToListAsync();
+        return contacts;
+    }
 
     public async Task<Contact> GetOneContact(Guid id)
     {
