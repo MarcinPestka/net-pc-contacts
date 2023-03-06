@@ -74,7 +74,8 @@ function App() {
       await sleep(100);
       axios({
         method: 'get',
-        url: 'http://localhost:5000/Contatcs/GetAllContacts?UserID='+userId,
+        url: 'http://localhost:5000/Contatcs/GetAllContactsUnAuth',
+        //url: 'http://localhost:5000/Contatcs/GetAllContacts?UserID='+userId,
         headers:{
           Authorization: jwt,
         } 
