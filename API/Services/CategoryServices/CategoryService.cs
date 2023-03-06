@@ -12,7 +12,7 @@ namespace API.Services.CategoryServices
             this.context = context; 
         }
 
-        public async Task<IEnumerable<Category>> GetAllContacts()
+        public async Task<IEnumerable<Category>> GetAllCategories()
         {
             var category = await this.context.Categories.ToListAsync();
             return category;

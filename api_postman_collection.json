@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "d15c5421-6e49-4a03-aaa3-2fb1c35d91a2",
+		"name": "Contacts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24651588"
+	},
+	"item": [
+		{
+			"name": "Get all contacts owned by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Contatcs/GetAllContacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Contatcs",
+						"GetAllContacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all contacts un authorized",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get one contact",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Contatcs/GetOneContacts?Id=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Contatcs",
+						"GetOneContacts"
+					],
+					"query": [
+						{
+							"key": "Id",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new contact",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"firstName\": \"Jan\",\n  \"lastName\": \"Nowak\",\n  \"email\": \"jan@nowak.pl\",\n  \"phoneNumber\": \"123123123\",\n  \"birthDate\": \"2023-03-01T19:51:47.929Z\",\n  \"category\": \"private\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/Contatcs/AddContact",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Contatcs",
+						"AddContact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Contact",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Tomasz\",\n  \"lastName\": \"Podbródek\",\n  \"email\": \"tom@pod.pl\",\n  \"phoneNumber\": \"111222333\",\n  \"birthDate\": \"2023-03-01T19:51:47.929Z\",\n  \"category\": \"private\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/Contatcs/ChangeContact?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Contatcs",
+						"ChangeContact"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Contact",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Contatcs/DeleteContact?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Contatcs",
+						"DeleteContact"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"jim@test.com\",\n\t\"username\": \"jim\",\n\t\"displayName\": \"James\",\n\t\"password\": \"Pa$$w0rd\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/account/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get current user",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

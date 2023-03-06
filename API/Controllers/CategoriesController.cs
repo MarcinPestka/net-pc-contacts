@@ -1,4 +1,5 @@
 using API.Services.CategoryServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -13,10 +14,11 @@ namespace API.Controllers
             this.CategoryService = CategoryService;
         }
 
+        [AllowAnonymous]
         [HttpGet("GetAllCategories")]
-        public async Task<IEnumerable<Category>> GetAllContacts()
+        public async Task<IEnumerable<Category>> GetAllCategories()
         {
-            var res = await CategoryService.GetAllContacts();
+            var res = await CategoryService.GetAllCategories();
             return res;
         }
     }

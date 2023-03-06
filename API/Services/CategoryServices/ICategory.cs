@@ -2,5 +2,5 @@ namespace API.Services.CategoryServices;
 
 public interface ICategory
 {
-    Task<IEnumerable<Category>> GetAllContacts();
+    Task<IEnumerable<Category>> GetAllCategories();
 }

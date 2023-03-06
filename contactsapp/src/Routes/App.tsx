@@ -50,20 +50,38 @@ function App() {
   const [categories, setCategories] = useState<category[]>([]);
   const [logedIn, setLoggedIn] = useState(false);
 
-  const userIde = JSON.parse(localStorage.getItem("UserStore") || '{}').userId;
+  const userId = JSON.parse(localStorage.getItem("UserStore") || '{}').userId;
   const jwt = "Bearer "+JSON.parse(localStorage.getItem("UserStore") || '{}').token;
 
+  useEffect(() => {
+    if(jwt != "Bearer null"){
+      setLoggedIn(true);
+    }
+  }, [jwt]);
+
   async function getContacts({ setContacts }: any) {
-  await sleep(100);
-  axios({
-    method: 'get',
-    url: 'http://localhost:5000/Contatcs/GetAllContactsUnAuth',
-    headers:{
-      Authorization: jwt,
-    } 
-  }).then(function (response) {
-    setContacts(mapContacts(response.data));
-  });
+    if(!logedIn){
+      axios({
+        method: 'get',
+        url: 'http://localhost:5000/Contatcs/GetAllContactsUnAuth',
+        headers:{
+          Authorization: jwt,
+        } 
+      }).then(function (response) {
+        setContacts(mapContacts(response.data));
+      });
+    }else{
+      await sleep(100);
+      axios({
+        method: 'get',
+        url: 'http://localhost:5000/Contatcs/GetAllContacts?UserID='+userId,
+        headers:{
+          Authorization: jwt,
+        } 
+      }).then(function (response) {
+        setContacts(mapContacts(response.data));
+      });
+    }
 }
 
   async function createOrEdit(contact: contactData) {
@@ -79,7 +97,8 @@ function App() {
           id: contact.id,
           phoneNumber: contact.phoneNumber,
           birthDate: contact.birthDate,
-          category: contact.category
+          category: contact.category,
+          isPrivate: contact.isPrivate
         },
         headers:{
           Authorization: jwt,
@@ -97,7 +116,7 @@ function App() {
           phoneNumber: contact.phoneNumber,
           birthDate: contact.birthDate,
           category: contact.category,
-          userId:userIde,
+          userId:userId,
         },
         headers:{
           Authorization: jwt,
@@ -106,6 +125,10 @@ function App() {
     }
   }
   useEffect(() => {
+    if(jwt != "Bearer null"){
+      setLoggedIn(true);
+    }
+    sleep(100);
     getContacts({ setContacts });
     getAllCategories();
   }, []);
@@ -115,11 +138,7 @@ function App() {
     getContacts({ setContacts });
   }
 
-  useEffect(() => {
-    if(jwt != "Bearer null"){
-      setLoggedIn(true);
-    }
-  }, [jwt]);
+
 
   useEffect(() => {
     setEditMode(edit);
